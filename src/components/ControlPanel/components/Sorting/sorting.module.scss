@@ -1,0 +1,15 @@
+@use "../../../../styles/buttons";
+
+.sortBtn {
+  @include buttons.basic-button();
+  max-width: 120px;
+  font-family: inherit;
+  background-color: rgb(20, 110, 228);
+  color: white;
+}
+
+.sortBtn:hover {
+  border-color: rgb(20, 110, 228);
+  background-color: white;
+  color: black;
+}
