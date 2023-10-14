@@ -1,9 +1,7 @@
 import styles from "./todoTemplate.module.scss"
 import { useDispatch } from "react-redux"
-import { removeTodo } from "../../../actions"
 import { useState } from "react"
-import { editTodo } from "../../../actions/edit-todo"
-import { updateTodo } from "../../../actions"
+import { updateTodo, setEditStatus, removeTodo } from "../../../actions"
 
 export const TodoTemplate = ({ title, done, id, isEditing }) => {
 	const dispatch = useDispatch()
@@ -27,7 +25,7 @@ export const TodoTemplate = ({ title, done, id, isEditing }) => {
 						<div>{text}</div>
 						<button
 							className={styles.todo_edit_btn}
-							onClick={() => dispatch(editTodo(id))}
+							onClick={() => dispatch(setEditStatus(id, true))}
 						>
 							Edit
 						</button>
@@ -42,17 +40,21 @@ export const TodoTemplate = ({ title, done, id, isEditing }) => {
 				)}
 			</div>
 			{isEditing && (
-				<button onClick={() => dispatch(updateTodo(id, text))}>Save</button>
+				<div>
+					<button
+						className={styles.saveBtn}
+						onClick={() => dispatch(updateTodo(id, text))}
+					>
+						Save
+					</button>
+					{/* <button
+						className={styles.todo_cancel_btn}
+						onClick={() => dispatch(setEditStatus(id, false))}
+					>
+						Cancel
+					</button> */}
+				</div>
 			)}
-			{/* <div>
-				{isEditing ? (
-					<Button onClick={onSave}>✎Save</Button>
-				) : (
-					<Button onClick={onRemove}>✖REmove</Button>
-				)}
-			</div> */}
-
-			{/* <button className={styles.todo_edit_btn} onClick={() => setIsEditing(true)}> */}
 		</div>
 	)
 }

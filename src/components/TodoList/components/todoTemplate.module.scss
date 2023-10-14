@@ -3,6 +3,7 @@
 
 .todo {
 	display: flex;
+	flex-wrap: nowrap;
 	font-weight: 600;
 	// justify-content: space-around;
 	background: whitesmoke;
@@ -21,7 +22,8 @@
 	text-overflow: ellipsis;
 	z-index: 0.95;
 }
-.todo .todo_edit_btn {
+.todo_edit_btn,
+.saveBtn {
 	@include buttons.basic-button();
 	background-color: rgb(114, 158, 216);
 	color: white;
@@ -42,4 +44,7 @@
 	border: 1px solid rgb(255, 255, 255);
 	background-color: rgb(253, 94, 54);
 	color: white;
+}
+.saveBtn:hover {
+	background-color: seagreen;
 }

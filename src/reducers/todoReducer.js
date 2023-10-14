@@ -28,7 +28,9 @@ export const todoReducer = (state = initialTodoState, action) => {
 			return [
 				// ...state,
 				...state.map((todo) =>
-					todo.id === action.payload ? { ...todo, isEditing: true } : todo
+					todo.id === action.payload.id
+						? { ...todo, isEditing: action.payload.status }
+						: todo
 				),
 			]
 		case "UPDATE_TODO":

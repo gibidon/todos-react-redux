@@ -4,7 +4,7 @@ import { debounceSearch } from "../../../../actions/debounceSearch"
 
 export const SearchForm = () => {
 	const [inputState, setInputState] = useState("")
-	// const timeout = useRef()
+	const timeout = useRef()
 	const dispatch = useDispatch()
 
 	return (
@@ -19,7 +19,11 @@ export const SearchForm = () => {
 					setInputState(e.target.value)
 					console.log(e.target.value)
 					// dispatch({ type: "SET_SEARCH_PHRASE", payload: e.target.value })
-					dispatch(debounceSearch(e.target.value))
+					// dispatch(debounceSearch(e.target.value))
+					clearTimeout(timeout.current)
+					timeout.current = setTimeout(() => {
+						dispatch(debounceSearch(e.target.value))
+					}, 600)
 				}}
 			/>
 			<button>Start search</button>
