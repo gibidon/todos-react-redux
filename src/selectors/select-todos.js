@@ -1,5 +1,6 @@
 export const selectTodos = (state, options = {}) => {
 	// if (options.sorting) {
+	// 	console.log("sorting is on")
 	// 	let sortedList = state.todoState.sort(function (a, b) {
 	// 		return b.title - a.title
 	// 	})

@@ -1,26 +1,50 @@
-// import { useSelector } from "react-redux"
 import styles from "./todoTemplate.module.scss"
+import { useDispatch } from "react-redux"
+import { removeTodo } from "../../../actions"
+import { useState } from "react"
+import { editTodo } from "../../../actions/edit-todo"
+import { updateTodo } from "../../../actions"
 
 export const TodoTemplate = ({ title, done, id, isEditing }) => {
+	const dispatch = useDispatch()
+	const [text, setText] = useState(title)
+
 	return (
 		<div className={styles.todo}>
-			<span className={styles.todo_text}>{title}</span>
-			<input type="checkbox" checked={done} onChange={() => console.log(id)} />
+			{/* <span className={styles.todo_text}>{title}</span> */}
+			{/* <input type="checkbox" checked={done} onChange={() => console.log(id)} /> */}
 			{/* onChange={({ target }) => onCompletedChange(target.checked)}  !!!*/}
 
-			{/* <div className={styles.title}>
+			<div className={styles.title}>
 				{isEditing ? (
 					<input
 						type="text"
-						value={title}
-						onChange={({ target }) => onTitleChange(target.value)}
+						value={text}
+						onChange={({ target }) => setText(target.value)}
 					/>
-					LazyInput?
 				) : (
-					<div onClick={onEdit}>{title}</div>
+					<>
+						<div>{text}</div>
+						<button
+							className={styles.todo_edit_btn}
+							onClick={() => dispatch(editTodo(id))}
+						>
+							Edit
+						</button>
+						<button
+							className={styles.todo_remove_btn}
+							onClick={() => dispatch(removeTodo(id))}
+							// onClick={() => dispatch({ type: "REMOVE_TODO", payload: id })}
+						>
+							Delete
+						</button>
+					</>
 				)}
 			</div>
-			<div>
+			{isEditing && (
+				<button onClick={() => dispatch(updateTodo(id, text))}>Save</button>
+			)}
+			{/* <div>
 				{isEditing ? (
 					<Button onClick={onSave}>✎Save</Button>
 				) : (
@@ -28,27 +52,7 @@ export const TodoTemplate = ({ title, done, id, isEditing }) => {
 				)}
 			</div> */}
 
-			{/* <button className={styles.todo_edit_btn} onClick={() => setIsEditing(true)}>
-				Edit
-			</button>
-			<button
-				className={styles.todo_remove_btn}
-				onClick={() => dispatch({ type: "REMOVE_TODO", payload: id })}
-			>
-				Delete
-			</button> */}
+			{/* <button className={styles.todo_edit_btn} onClick={() => setIsEditing(true)}> */}
 		</div>
 	)
 }
-
-// {
-// 	isEditing && (
-// 		<EditTemplate
-// 			cancelTodoUpdate={() => setIsEditing(false)}
-// 			update={(newText) => {
-// 				dispatch({ type: "UPDATE_TODO", payload: { id, newText } })
-// 				setIsEditing(false)
-// 			}}
-// 		/>
-// 	)
-// }

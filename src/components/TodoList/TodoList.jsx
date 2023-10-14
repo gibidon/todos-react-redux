@@ -1,24 +1,26 @@
 import styles from "./TodoList.module.scss"
-import { EditTemplate } from "../EditTemplate/EditTemplate"
-// import { AppContext } from "../../contexts/AppContext"
+
 import { useSelector } from "react-redux"
+import { useRef } from "react"
 import {
 	selectTodos,
 	selectSortingMode,
 	selectSearchPhrase,
+	selectSortedTodos,
 } from "../../selectors"
 import { TodoTemplate } from "./components/todoTemplate"
 
 export const TodoList = () => {
-	// const [isEditing, setIsEditing] = useState(false)
-	// const { todos, dispatch } = useContext(AppContext)
-	// const currentTodo = todos.find((todo) => todo.id === id)
+	const timeout = useRef()
 	let todos = useSelector(selectTodos)
+	console.log("todos in todoList: ", todos)
 	const isSortingMode = useSelector(selectSortingMode)
-	const searchPhrase = useSelector(selectSearchPhrase).searchPhrase
-	console.log("sf", searchPhrase)
 
-	console.log("is sorting in todolist ", isSortingMode)
+	const searchPhrase = useSelector(selectSearchPhrase).searchPhrase
+
+	// const sortedTodosSeparately = useSelector(selectSortedTodos)
+	// console.log("separated todos sorted ", sortedTodosSeparately)
+
 	if (isSortingMode) {
 		todos = todos.sort(function (a, b) {
 			// return b.title < a.title
@@ -38,8 +40,6 @@ export const TodoList = () => {
 		todos = todos.filter((todo) => todo.title.includes(searchPhrase))
 	}
 
-	console.log("todos", todos)
-
 	let todoElems = todos.map((todo) => (
 		<TodoTemplate
 			key={todo.id}
@@ -49,5 +49,5 @@ export const TodoList = () => {
 			isEditing={todo.isEditing}
 		/>
 	))
-	return <div>{todoElems}</div>
+	return <div className={styles.todoList}>{todoElems}</div>
 }
