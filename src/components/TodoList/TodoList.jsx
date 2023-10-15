@@ -1,43 +1,20 @@
 import styles from "./TodoList.module.scss"
-
 import { useSelector } from "react-redux"
-import { useRef } from "react"
-import {
-	selectTodos,
-	selectSortingMode,
-	selectSearchPhrase,
-	selectSortedTodos,
-} from "../../selectors"
+import { selectTodos, selectFilters } from "../../selectors"
 import { TodoTemplate } from "./components/todoTemplate"
+import { sortTodosByTitle } from "../../utils"
 
 export const TodoList = () => {
-	const timeout = useRef()
 	let todos = useSelector(selectTodos)
 	console.log("todos in todoList: ", todos)
-	const isSortingMode = useSelector(selectSortingMode)
+	const { sortingMode, searchPhrase } = useSelector(selectFilters)
+	console.log("filters: ", sortingMode, searchPhrase)
 
-	const searchPhrase = useSelector(selectSearchPhrase).searchPhrase
-
-	// const sortedTodosSeparately = useSelector(selectSortedTodos)
-	// console.log("separated todos sorted ", sortedTodosSeparately)
-
-	if (isSortingMode) {
-		todos = todos.sort(function (a, b) {
-			// return b.title < a.title
-			const titleA = a.title.toUpperCase() // ignore upper and lowercase
-			const titleB = b.title.toUpperCase() // ignore upper and lowercase
-			if (titleA < titleB) {
-				return -1
-			}
-			if (titleA > titleB) {
-				return 1
-			}
-
-			return 0
-		})
-	}
 	if (searchPhrase !== "") {
 		todos = todos.filter((todo) => todo.title.includes(searchPhrase))
+	}
+	if (sortingMode) {
+		todos = sortTodosByTitle(todos)
 	}
 
 	let todoElems = todos.map((todo) => (

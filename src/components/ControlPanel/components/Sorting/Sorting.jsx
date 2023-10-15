@@ -1,18 +1,19 @@
-import { useContext } from "react"
-// import { AppContext } from "../../../../contexts/AppContext"
+import { useSelector, useDispatch } from "react-redux"
+import { selectFilters } from "../../../../selectors"
 import styles from "./sorting.module.scss"
 
 export const Sorting = () => {
-	// const { dispatch } = useContext(AppContext)
+	const dispatch = useDispatch()
+	const { sortingMode } = useSelector(selectFilters)
 
 	return (
 		<>
-			{/* <button
-				onClick={() => dispatch({ type: "SORT_TODOS", payload: {} })}
+			<button
 				className={styles.sortBtn}
+				onClick={() => dispatch({ type: "CHANGE_SORTING_MODE" })}
 			>
-				Sort todos by name
-			</button> */}
+				{sortingMode ? "Cancel sorting by name" : "Sort by name"}
+			</button>
 		</>
 	)
 }

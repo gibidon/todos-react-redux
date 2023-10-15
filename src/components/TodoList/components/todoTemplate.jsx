@@ -22,7 +22,7 @@ export const TodoTemplate = ({ title, done, id, isEditing }) => {
 					/>
 				) : (
 					<>
-						<div>{text}</div>
+						<div className={styles.text}>{text}</div>
 						<button
 							className={styles.todo_edit_btn}
 							onClick={() => dispatch(setEditStatus(id, true))}
