@@ -6,9 +6,7 @@ import { sortTodosByTitle } from "../../utils"
 
 export const TodoList = () => {
 	let todos = useSelector(selectTodos)
-	console.log("todos in todoList: ", todos)
 	const { sortingMode, searchPhrase } = useSelector(selectFilters)
-	console.log("filters: ", sortingMode, searchPhrase)
 
 	if (searchPhrase !== "") {
 		todos = todos.filter((todo) => todo.title.includes(searchPhrase))

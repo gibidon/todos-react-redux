@@ -1,19 +1,19 @@
-// @use "../../styles/buttons";
 @use "../../../styles/buttons";
 
 .todo {
 	display: flex;
-	flex-wrap: nowrap;
+	// flex-wrap: nowrap;
 	font-weight: 600;
 	// justify-content: space-around;
 	background: whitesmoke;
 	border-radius: 10px;
 	opacity: 0.9;
 	min-height: 2.5rem;
+	justify-content: space-between;
 }
 
 .text {
-	flex-grow: 1;
+	// flex-grow: 1;
 	align-content: center;
 	align-self: center;
 	padding: 0 20px;
@@ -21,6 +21,9 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	z-index: 0.95;
+	margin: 10px;
+	// width: 100%;
+	// color: yellow;
 }
 .todo_edit_btn,
 .saveBtn {

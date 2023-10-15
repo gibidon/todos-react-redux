@@ -22,8 +22,6 @@ export const todoReducer = (state = initialTodoState, action) => {
 			let removeTodoIndex = state.indexOf(
 				state.find((todo) => todo.id === action.payload)
 			)
-			// let removingTodo = state.find((todo) => todo.id === action.payload)
-			// let removeTodoIndex = state.findIndex((todo) => todo.id === removingTodo.id)
 
 			return [
 				...state.slice(0, removeTodoIndex),
@@ -31,6 +29,8 @@ export const todoReducer = (state = initialTodoState, action) => {
 			]
 
 		case "SET_EDIT_STATUS":
+			// MUTATION!!!:
+
 			// return [
 			// 	...state.map((todo) =>
 			// 		todo.id === action.payload.id
@@ -38,6 +38,8 @@ export const todoReducer = (state = initialTodoState, action) => {
 			// 			: todo
 			// 	),
 			// ]
+
+			// IMMUTE CHANGE:  !!!!
 			let editingTodo = state.find((todo) => todo.id === action.payload.id)
 			let editingTodoIndex = state.findIndex((todo) => todo.id === editingTodo.id)
 			return [
