@@ -18,13 +18,14 @@ export const todoReducer = (state = initialTodoState, action) => {
 			}
 			return [...state, newTodo]
 		case "REMOVE_TODO":
-			// let newTodos = state.filter((todo) => todo.id !== action.payload)
-			// return [...newTodos]
-			return [...state.filter((todo) => todo.id !== action.payload)]
+			let removingTodo = state.find((todo) => todo.id === action.payload)
+			let removeTodoIndex = state.findIndex((todo) => todo.id === removingTodo.id)
+			return [
+				...state.slice(0, removeTodoIndex),
+				...state.slice(removeTodoIndex + 1),
+			]
+		// return [...state.filter((todo) => todo.id !== action.payload)]
 		case "SET_EDIT_STATUS":
-			// let newTodos = state.map((todo) =>
-			// todo.id === action.payload ? (todo.isEditing = true) : todo
-			// return newTodos
 			return [
 				// ...state,
 				...state.map((todo) =>
@@ -34,12 +35,21 @@ export const todoReducer = (state = initialTodoState, action) => {
 				),
 			]
 		case "UPDATE_TODO":
+			// return [
+			// 	...state.map((todo) =>
+			// 		todo.id === action.payload.id
+			// 			? { ...todo, title: action.payload.text, isEditing: false }
+			// 			: todo
+			// 	),
+			// ]
+			let updatingTodo = state.find((todo) => todo.id === action.payload.id)
+			let updatingTodoIndex = state.findIndex(
+				(todo) => todo.id === updatingTodo.id
+			)
 			return [
-				...state.map((todo) =>
-					todo.id === action.payload.id
-						? { ...todo, title: action.payload.text, isEditing: false }
-						: todo
-				),
+				...state.slice(0, updatingTodoIndex),
+				{ ...updatingTodo, title: action.payload.text, isEditing: false },
+				...state.slice(updatingTodoIndex + 1),
 			]
 
 		default:

@@ -1,4 +1,3 @@
-// import { configureStore, combineReducers } from "@reduxjs/toolkit"
 import { legacy_createStore as createStore } from "redux"
 import { combineReducers, applyMiddleware, compose } from "redux"
 import {
@@ -13,11 +12,10 @@ const reducer = combineReducers({
 	sortingModeState: sortingModeReducer,
 	searchPhraseState: searchPhraseReducer,
 })
-// export const store = configureStore({ reducer: reducer })
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
-const store = createStore(reducer, applyMiddleware(thunk))
-// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-// const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)))
-// const store = configureStore(reducer, composeEnhancers(applyMiddleware(thunk)))
+const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)))
+
+// const store = createStore(reducer, applyMiddleware(thunk))
 
 export { store }

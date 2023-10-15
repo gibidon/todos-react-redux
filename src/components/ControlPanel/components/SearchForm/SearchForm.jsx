@@ -17,9 +17,6 @@ export const SearchForm = () => {
 				placeholder="enter the text"
 				onChange={(e) => {
 					setInputState(e.target.value)
-					console.log(e.target.value)
-					// dispatch({ type: "SET_SEARCH_PHRASE", payload: e.target.value })
-					// dispatch(debounceSearch(e.target.value))
 					clearTimeout(timeout.current)
 					timeout.current = setTimeout(() => {
 						dispatch(debounceSearch(e.target.value))
@@ -30,10 +27,3 @@ export const SearchForm = () => {
 		</div>
 	)
 }
-
-// const onSearchTodos = (text) => {
-//   clearTimeout(timeout.current)
-//   timeout.current = setTimeout(() => {
-//     searchTodos(text).then((foundTodos) => setTodos(foundTodos))
-//   }, 600)
-// }
